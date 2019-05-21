@@ -1,5 +1,5 @@
-//创建app应用模块
-var yike = angular.module("yike",[]);
+//创建app应用模块,依赖模块:控制器模块ctrls,路由模块
+var yike = angular.module("yike",["ctrls","ngRoute"]);
 
 /* 
 调用run方法
@@ -40,3 +40,36 @@ yike.run(["$rootScope",function($rootScope){
     }
   }
 }]);
+
+//修复锚点值的改变
+yike.config(["$locationProvider",function($locationProvider){
+  $locationProvider.hashPrefix("");
+}]);
+
+//配置路由
+yike.config(["$routeProvider",function($routeProvider){
+  $routeProvider.when("/",{
+    redirectTo:"/index" //跳转到index处理
+  }).when("/index",{
+    templateUrl:"./views/test.html",//将要在ng-view趋于现实的视图
+    controller:"index"//调用index控制器
+  }).when("/order",{
+    templateUrl:"./views/test.html",
+    controller:"order"
+  }).when("/author",{
+    templateUrl:"./views/test.html",
+    controller:"author"
+  }).when("/category",{
+    templateUrl:"./views/test.html",
+    controller:"category"
+  }).when("/favourite",{
+    templateUrl:"./views/test.html",
+    controller:"favourite"
+  }).when("/settings",{
+    templateUrl:"./views/test.html",
+    controller:"settings"
+  })
+}]);
+
+
+
